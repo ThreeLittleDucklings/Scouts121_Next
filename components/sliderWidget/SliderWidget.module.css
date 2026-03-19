@@ -1,0 +1,88 @@
+/* =====================
+   Slider Container
+===================== */
+.container {
+  grid-column: span 3;
+  height: 100%;
+  width: 100%;
+  background-color: var(--color-primary);
+}
+
+.swiper {
+  height: 100%;
+  width: 100%;
+  padding: 6vh;
+}
+
+/* =====================
+   Card
+===================== */
+.slide {
+  background-color: aliceblue;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cardImg {
+  width: 100%;
+  object-fit: cover;
+  position: relative;
+  overflow: hidden;
+}
+
+/* =====================
+   Swiper overrides
+===================== */
+.swiperButtonPrev,
+.swiperButtonNext {
+  width: initial;
+  height: initial;
+  font-size: 3rem;
+  color: var(--color-dark);
+}
+
+.swiperButtonPrev::after,
+.swiperButtonNext::after {
+  content: '';
+}
+
+/* =====================
+   Responsive
+===================== */
+@media screen and (max-width: 800px) {
+  .container {
+    grid-column: span 3;
+    grid-row: span 2;
+    max-width: 100vw;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    grid-column: span 4;
+    grid-row: span 5;
+  }
+
+  .swiper {
+    padding: 5vh;
+  }
+
+  .cardImg {
+    height: 40%;
+  }
+}
+/* =====================
+   Event Grid
+===================== */
+.eventGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 10.5vw;
+  gap: 3%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.colSpan2 {
+  grid-column: span 2;
+}

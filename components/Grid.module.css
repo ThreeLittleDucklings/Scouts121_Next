@@ -1,0 +1,86 @@
+/* =====================
+   Shared Grid System
+===================== */
+.masterGrid,
+.leidingGrid,
+.verhuurGrid {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--gap);
+  display: grid;
+  grid-template-columns: repeat(var(--num-cols), 1fr);
+  grid-auto-rows: var(--row-height);
+  gap: var(--gap);
+}
+
+.masterGrid {
+  --gap: 6vw;
+  --num-cols: 4;
+  --row-height: 18vw;
+}
+
+.leidingGrid {
+  --gap: 6vw;
+  --num-cols: 4;
+  --row-height: 20vw;
+}
+
+.verhuurGrid {
+  --gap: 2vw;
+  --num-cols: 3;
+  --row-height: 20.5vw;
+}
+
+/* =====================
+   Grid span utilities
+===================== */
+.colSpan2 { grid-column: span 2; }
+.colSpan3 { grid-column: span 3; }
+.colSpan4 { grid-column: span 4; }
+.rowSpan2 { grid-row: span 2; }
+.rowSpan3 { grid-row: span 3; }
+.rowSpan4 { grid-row: span 4; }
+
+/* =====================
+   Cards
+===================== */
+.card {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  position: relative;
+  overflow: hidden;
+  background-color: aliceblue;
+  border-radius: 10px;
+}
+
+.card img {
+  height: 60%;
+  width: 100%;
+  object-fit: contain;
+  position: relative;
+  overflow: hidden;
+}
+
+.card h2 {
+  display: flex;
+  justify-content: center;
+  font-size: 2vw;
+}
+
+/* =====================
+   Responsive
+===================== */
+@media screen and (max-width: 800px) {
+  .card {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .card {
+    grid-column: span 4;
+    grid-row: span 4;
+  }
+}

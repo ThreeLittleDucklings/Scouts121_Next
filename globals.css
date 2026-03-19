@@ -1,0 +1,130 @@
+/* =====================
+   Variables
+===================== */
+:root {
+  --color-bg: #ddddd5;
+  --color-primary: #8c8c73;
+  --color-dark: #262626;
+  --color-white: #f5f5f5;
+  --color-footer: #333;
+}
+
+/* =====================
+   Reset
+===================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* =====================
+   Base
+===================== */
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  background-color: var(--color-bg);
+}
+
+a {
+  text-decoration: none;
+}
+
+
+
+/* =====================
+   Typography
+===================== */
+h1, h2 {
+  font-family: regular;
+}
+
+h3 {
+  font-family: bold;
+}
+
+p {
+  font-family: text;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+ul, ol {
+  font-family: text;
+  font-size: 1rem;
+   
+
+}
+
+/* =====================
+   Fonts
+===================== */
+@font-face {
+  font-family: bold;
+  src: url(/fonts/GeneralSans-Bold.ttf);
+}
+@font-face {
+  font-family: regular;
+  src: url(/fonts/GeneralSans-Regular.ttf);
+}
+@font-face {
+  font-family: text;
+  src: url(/fonts/CabinetGrotesk-Medium.ttf);
+}
+@font-face {
+  font-family: ExtraBold;
+  src: url(/fonts/CabinetGrotesk-Extrabold.ttf);
+}
+@font-face {
+  font-family: slim;
+  src: url(/fonts/GeneralSans-Light.ttf);
+}
+
+/* =====================
+   Utilities
+===================== */
+.textelement {
+  margin: 6vw;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 6vw;
+}
+
+.textelement > p,ul, ol {
+  margin: 1rem;
+}
+
+.orange {
+  color: orange;
+  font-family: bold;
+}
+
+.link {
+  color: var(--color-primary);
+}
+
+.centered {
+  text-align: center;
+  color: var(--color-dark);
+  margin: 0;
+}
+
+.overflow {
+  overflow: hidden;
+}
+
+.meer {
+  color: var(--color-dark);
+}
+
+.meer:hover {
+  color: var(--color-bg);
+}
+.takinfo {
+  margin-top: 1rem;
+}
+
+.knoop {
+  margin-top: 0;
+}

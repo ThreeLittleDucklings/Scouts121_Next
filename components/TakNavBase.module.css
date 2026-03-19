@@ -1,0 +1,54 @@
+/* =====================
+   Tak/Knoop Nav
+===================== */
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 6%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.navList {
+  display: flex;
+  list-style: none;
+  padding: 15px;
+  background-color: var(--color-primary);
+  border-radius: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+}
+
+.navList li {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.navList a {
+  text-decoration: none;
+  color: var(--color-dark);
+  font-size: 1.5em;
+  font-family: text;
+  transition: color 0.3s ease;
+}
+
+.navList a:hover {
+  color: var(--color-bg);
+}
+
+/* =====================
+   Responsive
+===================== */
+@media screen and (max-width: 800px) {
+  .navList a {
+    font-size: 1em;
+  }
+
+  .navList li {
+    padding: 0 7px;
+  }
+}
