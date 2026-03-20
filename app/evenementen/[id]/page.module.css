@@ -1,0 +1,47 @@
+.header {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+.dateBadge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  text-align: center;
+  font-family: bold;
+}
+
+.dateBadge p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-white);
+}
+
+.dateBadge h2 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--color-white);
+}
+
+.description {
+  margin-top: 1rem;
+}
+
+.description p {
+  margin-bottom: 0.75rem;
+}

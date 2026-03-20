@@ -115,11 +115,14 @@ ul, ol {
 }
 
 .meer {
-  color: var(--color-dark);
+  
+  color: orange;
+  font-family: bold;
+
 }
 
 .meer:hover {
-  color: var(--color-bg);
+  color: var(--color-dark);
 }
 .takinfo {
   margin-top: 1rem;

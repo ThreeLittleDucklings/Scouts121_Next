@@ -1,12 +1,12 @@
 'use client'
 
+import { useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
 import { format, parseISO, startOfDay } from 'date-fns'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useQuery, gql } from '@apollo/client'
-import { gql as gqlTag } from '@apollo/client'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -29,6 +29,10 @@ interface EventAttributes {
 interface Event {
   id: number
   attributes: EventAttributes
+}
+
+interface SliderWidgetProps {
+  onEventCount?: (count: number) => void
 }
 
 // --- Query ---
@@ -55,46 +59,44 @@ const EVENTS = gql`
   }
 `
 
-// --- Helpers ---
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL ?? 'https://api.scouts121.be'
 
-const truncateText = (text: string | null, length: number): string => {
-  if (!text) return ''
-  return text.length > length ? text.substring(0, length) + '...' : text
-}
-
 // --- Component ---
-export default function SliderWidget() {
+export default function SliderWidget({ onEventCount }: SliderWidgetProps) {
   const { loading, error, data } = useQuery(EVENTS)
-
-  if (loading) return <p>Evenementen laden...</p>
-  if (error) return <p>Fout bij ophalen evenementen</p>
 
   const today = startOfDay(new Date())
 
-  const events = (data.events.data as Event[])
-    .filter((event) => parseISO(event.attributes.datum) >= today)
-    .sort((a, b) =>
-      new Date(a.attributes.datum).getTime() - new Date(b.attributes.datum).getTime()
-    )
+  const events = data
+    ? (data.events.data as Event[])
+        .filter((event) => parseISO(event.attributes.datum) >= today)
+        .sort((a, b) =>
+          new Date(a.attributes.datum).getTime() - new Date(b.attributes.datum).getTime()
+        )
+    : []
 
-  if (events.length === 0) return <p>Geen komende evenementen</p>
+  useEffect(() => {
+    if (data) {
+      onEventCount?.(events.length)
+    }
+  }, [data, events.length, onEventCount])
+
+  if (loading) return <p>Evenementen laden...</p>
+  if (error) return <p>Fout bij ophalen evenementen</p>
+  if (events.length === 0) return null
 
   return (
     <div className={styles.container}>
       <Swiper
-        loop={true}
-        spaceBetween={60}
+        loop={events.length > 2}
+        spaceBetween={20}
         grabCursor={true}
         pagination={{ clickable: true, dynamicBullets: true }}
         navigation={{
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
         }}
-        breakpoints={{
-          900: { slidesPerView: 2 },
-          1400: { slidesPerView: 3 },
-        }}
+        slidesPerView={Math.min(events.length, 2)}
         modules={[Navigation, Pagination]}
         className={styles.swiper}
       >
@@ -108,30 +110,28 @@ export default function SliderWidget() {
                 width={0}
                 height={0}
                 sizes="100vw"
-                style={{ width: '100%', height: 'auto' }}
+                style={{ width: '100%', height: '45%', objectFit: 'cover' }}
               />
             )}
-            <Link className="centered" href={`/evenementen/${event.id}`}>
-              <h3 className="link">{event.attributes.title}</h3>
-            </Link>
-            <div className={styles.eventGrid}>
-  <div>
-    <div className="centered">
-      <p>{format(parseISO(event.attributes.datum), 'MMM')}</p>
-      <h3>{format(parseISO(event.attributes.datum), 'd')}</h3>
-    </div>
-  </div>
-  <div className={styles.colSpan2}>
-    <div className="centered">
-      <p className="link">
-        {truncateText(event.attributes.description, 80)}
-      </p>
-      <Link href={`/evenementen/${event.id}`}>
-        <span className="meer">Lees Meer</span>
-      </Link>
-    </div>
-  </div>
-</div>
+            <div className={styles.cardContent}>
+              <Link href={`/evenementen/${event.id}`}>
+                <h3 className={`${styles.cardTitle} link`}>{event.attributes.title}</h3>
+              </Link>
+              <div className={styles.cardInfo}>
+                <div className={styles.cardDate}>
+                  <p>{format(parseISO(event.attributes.datum), 'MMM')}</p>
+                  <h3>{format(parseISO(event.attributes.datum), 'd')}</h3>
+                </div>
+                <div className={styles.cardDescription}>
+                  <p className={styles.descriptionText}>
+                    {event.attributes.description}
+                  </p>
+                  <Link href={`/evenementen/${event.id}`}>
+                    <span className={`meer ${styles.leesMore}`}>Lees Meer</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
           </SwiperSlide>
         ))}
         <div className="swiper-button-next">

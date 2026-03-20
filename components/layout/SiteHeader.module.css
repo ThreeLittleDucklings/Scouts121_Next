@@ -51,7 +51,6 @@
   align-content: center;
   justify-content: space-around;
   z-index: 2;
-    list-style: none;
 }
 
 .nav li {
@@ -105,18 +104,20 @@
     padding: 0;
   }
 
-  .menuIcon {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    display: flex;
-    cursor: pointer;
-    color: var(--color-primary);
-    width: 30px;
-    height: 30px;
-    font-size: 7vh;
-    z-index: 1000;
-  }
+.menuIcon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  cursor: pointer;
+  color: var(--color-primary);
+  width: 60px;
+  height: 60px;
+  font-size: 7vh;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
 
   .nav {
     display: none;
@@ -126,10 +127,13 @@
     width: 250px;
     height: 100%;
     background-color: var(--color-bg);
-    padding-top: 180px;
+    padding-top: 80px;
     padding-bottom: 30px;
+    padding-left: 0;
     border-radius: 0;
     transform: translateX(-100%);
+    margin: 0;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
   }
 
   .input:checked + .menuIcon + .nav {

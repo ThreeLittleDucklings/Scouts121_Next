@@ -84,3 +84,23 @@
     grid-row: span 4;
   }
 }
+@media screen and (max-width: 1300px) {
+  .verhuurGrid {
+    --num-cols: 2;
+    --gap: 3vw;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .verhuurGrid {
+    --num-cols: 1;
+    --gap: 4vw;
+  }
+}
+@media screen and (max-width: 800px) {
+  .verhuurGrid {
+    
+    --row-height: 30vw;
+    overflow: hidden;
+  }
+}
