@@ -60,7 +60,7 @@ export default function TakkenEnLeiding() {
   return (
     <div className={gridStyles.masterGrid}>
       {sortedTakken.map((tak) => (
-        <div className={gridStyles.card} key={tak.id}>
+        <div className={gridStyles.takCard} key={tak.id}>
           {tak.attributes.logo?.data && (
             <Image
               src={`${STRAPI_URL}${tak.attributes.logo.data.attributes.url}`}
@@ -68,7 +68,7 @@ export default function TakkenEnLeiding() {
               width={0}
               height={0}
               sizes="100vw"
-              style={{ width: '100%', height: 'auto' }}
+              
             />
           )}
           <Link className="link" href={`/takken/${tak.id}`}>

@@ -116,16 +116,15 @@ function Leiding({ id }: { id: string }) {
         <div key={leiding.id} className={leidingStyles.card}>
           <div className={leidingStyles.imageWrapper}>
             {leiding.attributes.foto?.data && (
-              <Image
-                className={leidingStyles.image}
-                src={`${STRAPI_URL}${leiding.attributes.foto.data.attributes.url}`}
-                alt={leiding.attributes.naam}
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{ width: '100%', height: 'auto' }}
-              />
-            )}
+  <Image
+    className={leidingStyles.image}
+    src={`${STRAPI_URL}${leiding.attributes.foto.data.attributes.url}`}
+    alt={leiding.attributes.naam}
+    fill
+    sizes="(max-width: 800px) 50vw, 25vw"
+    style={{ objectFit: 'cover' }}
+  />
+)}
           </div>
           <p className={leidingStyles.title}>{leiding.attributes.naam}</p>
           <div className={leidingStyles.info}>
@@ -152,8 +151,10 @@ export default function TakPage({ params }: { params: Promise<{ id: string }> })
       <TakNav />
       <div className="textelement">
         <TakInfo id={id} />
-        <Leiding id={id} />
       </div>
+      <div style={{ maxWidth: '2000px', margin: '0 auto', padding: '0 2vw' }}>
+  <Leiding id={id} />
+</div>
     </div>
   )
 }

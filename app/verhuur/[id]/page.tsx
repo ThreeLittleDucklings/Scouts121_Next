@@ -62,28 +62,28 @@ export default function VerhuurDetailPage({ params }: { params: Promise<{ id: st
 
   const items: VerhuurItem[] = data.verhuurcategory?.data?.attributes?.verhuurs?.data ?? []
 
-  return (
-    <div className={gridStyles.masterGrid}>
-      {items.length === 0 ? (
-        <p>Geen items beschikbaar</p>
-      ) : (
-        items.map((verhuur) => (
-          <div key={verhuur.id} className={gridStyles.card}>
-            <h2>{verhuur.attributes.item}</h2>
-            {verhuur.attributes.foto?.data && (
-              <Image
-                src={`${STRAPI_URL}${verhuur.attributes.foto.data.attributes.url}`}
-                alt={verhuur.attributes.item}
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{ width: '100%', height: 'auto' }}
-              />
-            )}
-            <p>{verhuur.attributes.beschrijving}</p>
-          </div>
-        ))
-      )}
-    </div>
-  )
+return (
+  <div className={gridStyles.verhuurGrid}>
+    {items.length === 0 ? (
+      <p>Geen items beschikbaar</p>
+    ) : (
+      items.map((verhuur) => (
+        <div key={verhuur.id} className={gridStyles.card}>
+          <h2 className="link">{verhuur.attributes.item}</h2>
+          {verhuur.attributes.foto?.data && (
+            <Image
+              src={`${STRAPI_URL}${verhuur.attributes.foto.data.attributes.url}`}
+              alt={verhuur.attributes.item}
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: '100%', height: 'auto', marginBottom: '0.5rem' }}
+            />
+          )}
+          <p>{verhuur.attributes.beschrijving}</p>
+        </div>
+      ))
+    )}
+  </div>
+)
 }

@@ -8,7 +8,7 @@ export default function InstagramEmbed() {
       <iframe
         src="https://www.instagram.com/scouts121/embed"
         className={styles.frame}
-        allowTransparency={true}
+       
         allow="encrypted-media"
         title="Instagram scouts121"
         scrolling="no"
