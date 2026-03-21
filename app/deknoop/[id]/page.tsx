@@ -2,7 +2,11 @@
 
 import { useQuery, gql } from '@apollo/client'
 import { isAfter, isBefore, subDays, addDays, format, parseISO } from 'date-fns'
+import { use } from 'react'
+import Link from 'next/link'
 import KnoopNav from '@/components/KnoopNav'
+import { useAuth } from '@/components/AuthContext'
+import styles from './page.module.css'
 
 // --- Types ---
 interface KnoopAttributes {
@@ -63,32 +67,31 @@ const formatDateToDDMMYYYY = (dateString: string | null): string => {
 }
 
 // --- Component ---
-import { use } from 'react'
-
 export default function DeKnoopDetail({ params }: { params: Promise<{ id: string }> }) {
- const { id } = use(params)
-  
+  const { id } = use(params)
+  const { user } = useAuth()
+
   const { loading, error, data } = useQuery(KNOOP, {
     variables: { id },
   })
 
- if (loading) return (
-  <div>
-    <KnoopNav />
-    <div className="textelement knoop">
-      <p>Laden...</p>
+  if (loading) return (
+    <div>
+      <KnoopNav />
+      <div className="textelement knoop">
+        <p>Laden...</p>
+      </div>
     </div>
-  </div>
-)
+  )
 
-if (error) return (
-  <div>
-    <KnoopNav />
-    <div className="textelement knoop">
-      <p>Fout bij ophalen gegevens: {error.message}</p>
+  if (error) return (
+    <div>
+      <KnoopNav />
+      <div className="textelement knoop">
+        <p>Fout bij ophalen gegevens: {error.message}</p>
+      </div>
     </div>
-  </div>
-)
+  )
 
   const naam: string = data.tak?.data?.attributes?.naam ?? 'Onbekende tak'
   const knoops: Knoop[] = data.tak?.data?.attributes?.knoops?.data ?? []
@@ -106,32 +109,36 @@ if (error) return (
       new Date(a.attributes.datum).getTime() - new Date(b.attributes.datum).getTime()
     )
 
- return (
-  <div>
-    <KnoopNav />
-    <div className="textelement">
-      <h1>{naam}</h1>
-      {filteredKnoops.length === 0 ? (
-        <p>Oeps, er zijn geen toekomstige vergaderingen te vinden</p>
-      ) : (
-        filteredKnoops.map((knoop) => (
-          <div key={knoop.id} className="knoop-card">
-            <h2>
-              {formatDateToDDMMYYYY(knoop.attributes.datum)}
-              {knoop.attributes.weekend_kamp && knoop.attributes.einddatum_nietinvullen && (
-                ` - ${formatDateToDDMMYYYY(knoop.attributes.einddatum_nietinvullen)}`
-              )}
-            </h2>
-            <h3>
-              {formatTimeTo24Hour(knoop.attributes.startUur)} -{' '}
-              {formatTimeTo24Hour(knoop.attributes.eindUur)}
-            </h3>
-            <p>{knoop.attributes.knoopEntry}</p>
-          </div>
-        ))
-      )}
+  return (
+    <div>
+      <KnoopNav />
+      <div className="textelement">
+        <h1>{naam}</h1>
+        {user && (
+          <Link href={`/deknoop/${id}/nieuw`} className={styles.addButton}>
+            +
+          </Link>
+        )}
+        {filteredKnoops.length === 0 ? (
+          <p>Oeps, er zijn geen toekomstige vergaderingen te vinden</p>
+        ) : (
+          filteredKnoops.map((knoop) => (
+            <div key={knoop.id} className="knoop-card">
+              <h2>
+                {formatDateToDDMMYYYY(knoop.attributes.datum)}
+                {knoop.attributes.weekend_kamp && knoop.attributes.einddatum_nietinvullen && (
+                  ` - ${formatDateToDDMMYYYY(knoop.attributes.einddatum_nietinvullen)}`
+                )}
+              </h2>
+              <h3>
+                {formatTimeTo24Hour(knoop.attributes.startUur)} -{' '}
+                {formatTimeTo24Hour(knoop.attributes.eindUur)}
+              </h3>
+              <p>{knoop.attributes.knoopEntry}</p>
+            </div>
+          ))
+        )}
+      </div>
     </div>
-  </div>
-)
-
+  )
 }

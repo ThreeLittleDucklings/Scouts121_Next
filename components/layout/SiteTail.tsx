@@ -4,8 +4,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { FaFacebook, FaInstagram } from 'react-icons/fa'
 import styles from './SiteTail.module.css'
-
+import { useAuth } from '@/components/AuthContext'
 export default function SiteTail() {
+  const { user, logout } = useAuth()
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
@@ -44,15 +45,21 @@ export default function SiteTail() {
           <Image src="/img/Vlaanderen.png" alt="Vlaanderen logo" width={0} height={0} sizes="100vw" style={{ width: '80px', height: 'auto' }} />
         </div>
 
-        <div className={styles.section}>
-          <Link href="/login" className={styles.loginButton}>
-            Login voor leiding
-          </Link>
-          <p>ontworpen &amp; ontwikkeld door</p>
-          <a href="https://github.com/ThreeLittleDucklings" className={styles.link}>
-            <p>@ThreeLittleDucklings</p>
-          </a>
-        </div>
+       <div className={styles.section}>
+  {!user ? (
+    <Link href="/login" className={styles.loginButton}>
+      Login voor leiding
+    </Link>
+  ) : (
+    <button className={styles.loginButton} onClick={logout}>
+      Logout
+    </button>
+  )}
+  <p>ontworpen &amp; ontwikkeld door</p>
+  <a href="https://github.com/ThreeLittleDucklings" className={styles.link}>
+    <p>@ThreeLittleDucklings</p>
+  </a>
+</div>
 
       </div>
     </footer>

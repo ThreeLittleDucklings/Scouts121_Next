@@ -6,7 +6,24 @@
   gap: 2vw;
   box-sizing: border-box;
 }
+.manageButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.75rem;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 8px;
+  font-family: bold;
+  font-size: 0.85rem;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+  transition: background-color 0.3s ease;
+}
 
+.manageButton:hover {
+  background-color: var(--color-dark);
+  color: white;
+}
 .top {
   display: flex;
   flex-direction: row;

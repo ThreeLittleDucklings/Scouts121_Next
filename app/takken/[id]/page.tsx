@@ -3,8 +3,12 @@
 import { use } from 'react'
 import { useQuery, gql } from '@apollo/client'
 import Image from 'next/image'
+import Link from 'next/link'
 import TakNav from '@/components/TakNav'
 import gridStyles from '@/components/Grid.module.css'
+import leidingStyles from '@/components/LeidingCard.module.css'
+import { useAuth } from '@/components/AuthContext'
+import styles from './page.module.css'
 
 // --- Types ---
 interface LeidingAttributes {
@@ -98,8 +102,6 @@ function TakInfo({ id }: { id: string }) {
 }
 
 // --- Leiding subcomponent ---
-import leidingStyles from '@/components/LeidingCard.module.css'
-
 function Leiding({ id }: { id: string }) {
   const { loading, error, data } = useQuery(GET_LEIDING, { variables: { id } })
 
@@ -116,15 +118,15 @@ function Leiding({ id }: { id: string }) {
         <div key={leiding.id} className={leidingStyles.card}>
           <div className={leidingStyles.imageWrapper}>
             {leiding.attributes.foto?.data && (
-  <Image
-    className={leidingStyles.image}
-    src={`${STRAPI_URL}${leiding.attributes.foto.data.attributes.url}`}
-    alt={leiding.attributes.naam}
-    fill
-    sizes="(max-width: 800px) 50vw, 25vw"
-    style={{ objectFit: 'cover' }}
-  />
-)}
+              <Image
+                className={leidingStyles.image}
+                src={`${STRAPI_URL}${leiding.attributes.foto.data.attributes.url}`}
+                alt={leiding.attributes.naam}
+                fill
+                sizes="(max-width: 800px) 50vw, 25vw"
+                style={{ objectFit: 'cover' }}
+              />
+            )}
           </div>
           <p className={leidingStyles.title}>{leiding.attributes.naam}</p>
           <div className={leidingStyles.info}>
@@ -145,16 +147,27 @@ function Leiding({ id }: { id: string }) {
 // --- Page ---
 export default function TakPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
+  const { user } = useAuth()
 
   return (
     <div>
       <TakNav />
+      {user && (
+        <div style={{ display: 'flex', gap: '1rem', margin: '1rem 2vw' }}>
+          <Link href={`/takken/${id}/bewerken`} className={styles.editButton}>
+            ✏️ Beschrijving bewerken
+          </Link>
+         <Link href="/leiding/beheren" className={styles.editButton}>
+  + Leiding beheren
+</Link>
+        </div>
+      )}
       <div className="textelement">
         <TakInfo id={id} />
       </div>
       <div style={{ maxWidth: '2000px', margin: '0 auto', padding: '0 2vw' }}>
-  <Leiding id={id} />
-</div>
+        <Leiding id={id} />
+      </div>
     </div>
   )
 }

@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './SiteHeader.module.css'
-
+import { useAuth } from '@/components/AuthContext'
 const logoscouts121 = '/img/logo.png'
 const logosgv = '/img/sgv.svg'
 const Trooper = '/img/trooper.png'
@@ -13,6 +13,7 @@ const headerImageUrl =
   'https://images.unsplash.com/photo-1503435980610-a51f3ddfee50?q=80&w=2574&auto=format&fit=crop'
 
 export default function SiteHeader() {
+  const { user } = useAuth()
   const [isMenuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef<HTMLElement>(null)
 
@@ -41,12 +42,12 @@ export default function SiteHeader() {
 
       <div className={styles.logo}>
         <Image
-          src={logoscouts121}
-          alt="Scouts 121 logo"
-          width={0}
-          height={0}
-          sizes="100vw"
-          style={{ width: '35vh', height: 'auto' }}
+           src={logoscouts121}
+    alt="Scouts 121 logo"
+    width={0}
+    height={0}
+    sizes="(max-width: 600px) 20vh, (max-width: 400px) 15vh, 35vh"
+    style={{ width: 'clamp(100px, 60vw, 35vh)', height: 'auto' }}
         />
       </div>
 
@@ -80,6 +81,9 @@ export default function SiteHeader() {
           <li><Link href="/Inschrijving_Scouts121" onClick={handleLinkClick}>lid worden</Link></li>
           <li><Link href="/verhuur" onClick={handleLinkClick}>verhuur</Link></li>
           <li><Link href="/contact" onClick={handleLinkClick}>contact</Link></li>
+          {user && (
+  <li><Link href="/calenderleiding" onClick={handleLinkClick}>kalender</Link></li>
+)}
           <li>
             <a href="https://www.trooper.be/nl/trooperverenigingen/scouts121/">
               <Image
