@@ -83,6 +83,10 @@ export default function SiteHeader() {
           <li><Link href="/contact" onClick={handleLinkClick}>contact</Link></li>
           {user && (
   <li><Link href="/calenderleiding" onClick={handleLinkClick}>kalender</Link></li>
+  
+)}
+{user && (
+  <li><Link href="/handleiding" onClick={handleLinkClick}>handleiding</Link></li>
 )}
           <li>
             <a href="https://www.trooper.be/nl/trooperverenigingen/scouts121/">

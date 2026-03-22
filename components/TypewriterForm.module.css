@@ -1,0 +1,85 @@
+.formWrapper {
+  background-color: aliceblue;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--color-primary);
+  max-width: 500px;
+}
+
+.formTitle {
+  font-family: bold;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.formRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.label {
+  font-family: bold;
+  font-size: 0.85rem;
+  color: var(--color-dark);
+}
+
+.inputDisplay {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  background-color: white;
+  font-family: text;
+  font-size: 0.95rem;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.textarea {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  background-color: white;
+  font-family: text;
+  font-size: 0.95rem;
+  resize: none;
+  outline: none;
+}
+
+.selectDisplay {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  background-color: white;
+  font-family: text;
+  font-size: 0.95rem;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+}
+
+.placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+.cursor {
+  display: inline-block;
+  animation: blink 0.7s infinite;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

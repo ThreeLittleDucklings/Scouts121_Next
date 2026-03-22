@@ -66,8 +66,8 @@ export default function NieuwKnoopPage({ params }: { params: Promise<{ id: strin
   const router = useRouter()
 
   const [datum, setDatum] = useState('')
-  const [startUur, setStartUur] = useState('')
-  const [eindUur, setEindUur] = useState('')
+const [startUur, setStartUur] = useState('09:30')
+const [eindUur, setEindUur] = useState('12:00')
   const [knoopEntry, setKnoopEntry] = useState('')
   const [weekendKamp, setWeekendKamp] = useState(false)
   const [einddatum, setEinddatum] = useState('')
