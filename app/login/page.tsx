@@ -25,33 +25,41 @@ export default function LoginPage() {
     setLoading(false)
   }
 
-  return (
-    <div className="textelement">
-      <h1>Login voor leiding</h1>
-      <div className={styles.form}>
-        <input
-          className={styles.input}
-          type="email"
-          placeholder="E-mailadres"
-          value={identifier}
-          onChange={(e) => setIdentifier(e.target.value)}
-        />
-        <input
-          className={styles.input}
-          type="password"
-          placeholder="Wachtwoord"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && <p className={styles.error}>{error}</p>}
-        <button
-          className={styles.button}
-          onClick={handleSubmit}
-          disabled={loading}
-        >
-          {loading ? 'Laden...' : 'Inloggen'}
-        </button>
-      </div>
+return (
+  <div className="textelement">
+    <h1>Login voor leiding</h1>
+    <div className={styles.form}>
+      <input
+        className={styles.input}
+        type="email"
+        placeholder="E-mailadres"
+        value={identifier}
+        onChange={(e) => setIdentifier(e.target.value)}
+      />
+      <input
+        className={styles.input}
+        type="password"
+        placeholder="Wachtwoord"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      {error && <p className={styles.error}>{error}</p>}
+      <button
+        className={styles.button}
+        onClick={handleSubmit}
+        disabled={loading}
+      >
+        {loading ? 'Laden...' : 'Inloggen'}
+      </button>
+      <a
+        href="https://api.scouts121.be/admin"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.strapiLink}
+      >
+        Naar Strapi admin →
+      </a>
     </div>
-  )
+  </div>
+)
 }

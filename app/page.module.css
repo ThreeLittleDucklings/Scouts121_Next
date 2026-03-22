@@ -36,6 +36,8 @@
 .slider {
   flex: 1;
   height: 500px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 /* Single event — 1/3 */
@@ -43,6 +45,8 @@
   flex: 1;
   height: 500px;
   max-width: 33%;
+  min-width: 0;
+  overflow: hidden;
 }
 
 /* Instagram next to multiple events — 50/50 */

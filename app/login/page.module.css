@@ -46,3 +46,15 @@
   font-size: 0.9rem;
   margin: 0;
 }
+.strapiLink {
+  text-align: center;
+  color: var(--color-primary);
+  font-family: text;
+  font-size: 0.9rem;
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+
+.strapiLink:hover {
+  color: var(--color-dark);
+}

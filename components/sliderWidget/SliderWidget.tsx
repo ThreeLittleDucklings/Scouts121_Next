@@ -7,7 +7,7 @@ import { format, parseISO, startOfDay } from 'date-fns'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useQuery, gql } from '@apollo/client'
-
+import { renderMarkdownText } from '@/lib/renderMarkdownText'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -87,19 +87,22 @@ export default function SliderWidget({ onEventCount }: SliderWidgetProps) {
 
   return (
     <div className={styles.container}>
-      <Swiper
-        loop={events.length > 2}
-        spaceBetween={20}
-        grabCursor={true}
-        pagination={{ clickable: true, dynamicBullets: true }}
-        navigation={{
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        }}
-        slidesPerView={Math.min(events.length, 2)}
-        modules={[Navigation, Pagination]}
-        className={styles.swiper}
-      >
+    <Swiper
+  loop={events.length > 2}
+  spaceBetween={20}
+  grabCursor={true}
+  pagination={{ clickable: true, dynamicBullets: true }}
+  navigation={{
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  }}
+  slidesPerView={1}
+  breakpoints={{
+    600: { slidesPerView: Math.min(events.length, 2) }
+  }}
+  modules={[Navigation, Pagination]}
+  className={styles.swiper}
+>
         {events.map((event) => (
           <SwiperSlide className={styles.slide} key={event.id}>
             {event.attributes.thumbnail?.data && (
@@ -110,7 +113,7 @@ export default function SliderWidget({ onEventCount }: SliderWidgetProps) {
                 width={0}
                 height={0}
                 sizes="100vw"
-                style={{ width: '100%', height: '45%', objectFit: 'cover' }}
+                style={{ width: '100%', height: '200px', objectFit: 'cover' }}
               />
             )}
             <div className={styles.cardContent}>
@@ -124,8 +127,8 @@ export default function SliderWidget({ onEventCount }: SliderWidgetProps) {
                 </div>
                 <div className={styles.cardDescription}>
                   <p className={styles.descriptionText}>
-                    {event.attributes.description}
-                  </p>
+  {renderMarkdownText(event.attributes.description)}
+</p>
                   <Link href={`/evenementen/${event.id}`}>
                     <span className={`meer ${styles.leesMore}`}>Lees Meer</span>
                   </Link>

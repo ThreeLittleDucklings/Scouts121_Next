@@ -5,7 +5,7 @@ import { useQuery, gql } from '@apollo/client'
 import Image from 'next/image'
 import { format, parseISO } from 'date-fns'
 import styles from './page.module.css'
-
+import { renderMarkdownText } from '@/lib/renderMarkdownText'
 // --- Types ---
 interface EventAttributes {
   title: string
@@ -46,24 +46,9 @@ const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL ?? 'https://api.scouts121.
 
 // --- Helpers ---
 // Renders a line with markdown links converted to <a> tags
-const renderLine = (line: string, i: number) => {
-  const parts = line.split(/(\[.*?\]\(.*?\))/g)
-  return (
-    <p key={i}>
-      {parts.map((part, j) => {
-        const match = part.match(/\[(.*?)\]\((.*?)\)/)
-        if (match) {
-          return (
-            <a key={j} href={match[2]} target="_blank" rel="noopener noreferrer" className="orange">
-              {match[1]}
-            </a>
-          )
-        }
-        return <span key={j}>{part}</span>
-      })}
-    </p>
-  )
-}
+const renderLine = (line: string, i: number) => (
+  <p key={i}>{renderMarkdownText(line)}</p>
+)
 
 // --- Page ---
 export default function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
