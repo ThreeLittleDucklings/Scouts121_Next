@@ -1,0 +1,32 @@
+.page {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.title {
+  align-self: flex-start;
+}
+
+.calendarWrapper {
+  width: 100%;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.calendar {
+  width: 100%;
+  height: 700px;
+  border: none;
+  display: block;
+}
+
+@media screen and (max-width: 800px) {
+  .calendar {
+    height: 500px;
+  }
+}
