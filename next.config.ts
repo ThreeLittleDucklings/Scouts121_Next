@@ -11,6 +11,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/Verhuur/:id',
+        destination: '/verhuur/:id',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default nextConfig
