@@ -262,7 +262,7 @@ export default function JetlagPage() {
           position={position}
           myTeam={team}
           onSectorClick={(sector) => setSelectedSector(sector)}
-          onManualLocation={updateLocation}
+          
         />
       </div>
 

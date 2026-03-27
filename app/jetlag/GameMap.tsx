@@ -36,14 +36,7 @@ const swapCoords = (bounds: [number, number][]): [number, number][] =>
   bounds.map(([lng, lat]) => [lat, lng])
 
 // Click on map to manually set location (for testing)
-function ManualLocationSetter({ onLocation }: { onLocation: (lat: number, lng: number) => void }) {
-  useMapEvents({
-    click(e) {
-      onLocation(e.latlng.lat, e.latlng.lng)
-    }
-  })
-  return null
-}
+
 const lightenColor = (hex: string, percent: number) => {
   const num = parseInt(hex.replace('#', ''), 16)
   const r = (num >> 16) + Math.round(255 * percent)
@@ -84,13 +77,13 @@ function MapCenterer({ position }: { position: [number, number] | null }) {
   return null
 }
 
-export default function GameMap({ sectors, teams, position, myTeam, onSectorClick, onManualLocation }: {
+export default function GameMap({ sectors, teams, position, myTeam, onSectorClick}: {
   sectors: Sector[]
   teams: Team[]
   position: [number, number] | null
   myTeam: Team
   onSectorClick: (sector: Sector) => void
-  onManualLocation: (lat: number, lng: number) => void
+  
 }) {
 const getSectorColor = (sector: Sector) => {
   if (sector.attributes.status === 'locked') {
@@ -124,7 +117,7 @@ const getSectorOpacity = (sector: Sector) => {
       />
 
       {/* Manual location setter for testing — click map to move your position */}
-      <ManualLocationSetter onLocation={onManualLocation} />
+    
       <MapCenterer position={position} />
 
       {/* Sectors */}
