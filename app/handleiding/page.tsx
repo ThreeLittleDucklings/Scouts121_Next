@@ -98,11 +98,11 @@ function KnoopDemo() {
           <div className={styles.formRow}>
             <label>Start uur</label>
             <div className={styles.timeRow}>
-              <select className={styles.select} value="09" readOnly onChange={() => {}}>
+              <select className={styles.select} value="09" disabled onChange={() => {}}>
                 <option>09</option>
               </select>
               <span>:</span>
-              <select className={styles.select} value="30" readOnly onChange={() => {}}>
+              <select className={styles.select} value="30" disabled onChange={() => {}}>
                 <option>30</option>
               </select>
             </div>
@@ -110,11 +110,11 @@ function KnoopDemo() {
           <div className={styles.formRow}>
             <label>Eind uur</label>
             <div className={styles.timeRow}>
-              <select className={styles.select} value="12" readOnly onChange={() => {}}>
+              <select className={styles.select} value="12" disabled onChange={() => {}}>
                 <option>12</option>
               </select>
               <span>:</span>
-              <select className={styles.select} value="00" readOnly onChange={() => {}}>
+              <select className={styles.select} value="00" disabled onChange={() => {}}>
                 <option>00</option>
               </select>
             </div>
