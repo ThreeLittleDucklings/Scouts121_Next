@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 interface RichTextChild {
   text: string
@@ -18,12 +19,41 @@ export interface RichTextBlock {
 const renderChild = (child: RichTextChild, j: number) => {
   if (child.type === 'link' && child.url) {
     return (
-      <a key={j} href={child.url} target="_blank" rel="noopener noreferrer">
+      <a key={j} href={child.url} target="_blank" rel="noopener noreferrer" className="orange">
         {child.children?.map((c, k) => <span key={k}>{c.text}</span>)}
       </a>
     )
   }
   return <span key={j}>{child.text}</span>
+}
+
+// Replaces "hier" with a link in a block's children when sign-up is open
+const renderChildrenWithHierLink = (children: RichTextChild[]) => {
+  return children.map((child, j) => {
+    if (child.type !== 'text' || !child.text.includes('hier op de website online komt')) {
+      return renderChild(child, j)
+    }
+    const parts = child.text.split('hier op de website online komt')
+    return (
+      <span key={j}>
+        {parts[0]}
+        <Link href="/inschrijven" className="orange">hier</Link>
+        {' op de website online komt'}
+        {parts[1]}
+      </span>
+    )
+  })
+}
+
+// Renders a paragraph, replacing "hier" with a link if sign-up is open
+const renderParagraph = (block: RichTextBlock, i: number, inschrijvingenOpen: boolean) => {
+  const fullText = block.children.map(c => c.text ?? '').join('')
+
+  if (inschrijvingenOpen && fullText.includes('hier op de website online komt')) {
+    return <p key={i}>{renderChildrenWithHierLink(block.children)}</p>
+  }
+
+  return <p key={i}>{block.children.map((child, j) => renderChild(child, j))}</p>
 }
 
 // Groups consecutive list blocks of same format into one list
@@ -54,7 +84,7 @@ const groupBlocks = (blocks: RichTextBlock[]): (RichTextBlock | RichTextBlock[])
   return result
 }
 
-export const renderRichText = (blocks: RichTextBlock[]) => {
+export const renderRichText = (blocks: RichTextBlock[], inschrijvingenOpen: boolean = false) => {
   const grouped = groupBlocks(blocks)
 
   return grouped.map((item, i) => {
@@ -77,14 +107,17 @@ export const renderRichText = (blocks: RichTextBlock[]) => {
 
     // Single block
     const block = item as RichTextBlock
-    const children = block.children.map((child, j) => renderChild(child, j))
+    const fullText = block.children.map(c => c.text ?? '').join('')
 
     switch (block.type) {
       case 'heading':
         const Tag = `h${block.level ?? 2}` as React.ElementType
-        return <Tag key={i}>{children}</Tag>
+        if (inschrijvingenOpen && fullText.includes('hier op de website online komt')) {
+          return <Tag key={i}>{renderChildrenWithHierLink(block.children)}</Tag>
+        }
+        return <Tag key={i}>{block.children.map((child, j) => renderChild(child, j))}</Tag>
       case 'paragraph':
-        return <p key={i}>{children}</p>
+        return renderParagraph(block, i, inschrijvingenOpen)
       default:
         return null
     }
